@@ -38,7 +38,7 @@ node() {
     // Prepare
     service = toolbox.prepareThreescaleService(
         openapi: [filename: "semver-usecase/" + params.OPENAPI_SPECIFICATION_FILE ],
-        environment: [ baseSystemName: "semver_usecase",
+        environment: [ baseSystemName: "semvers_usecase",
                        publicBasePath: "/api/",
                        environmentName: "dev",
                        oidcIssuerEndpoint: params.OIDC_ISSUER_ENDPOINT,
