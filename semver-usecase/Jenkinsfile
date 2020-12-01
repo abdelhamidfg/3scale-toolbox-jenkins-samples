@@ -116,48 +116,7 @@ node() {
     service.promoteToProduction()
   }
 
-  stage("Deploy API in Prod") {
-    // Prepare
-    service = toolbox.prepareThreescaleService(
-        openapi: [filename: "semver-usecase/" + params.OPENAPI_SPECIFICATION_FILE ],
-        environment: [ baseSystemName: "semver_usecase",
-                       publicBasePath: "/api/",
-                       environmentName: "prod",
-                       oidcIssuerEndpoint: params.OIDC_ISSUER_ENDPOINT,
-                       publicStagingWildcardDomain: params.PUBLIC_STAGING_WILDCARD_DOMAIN != "" ? params.PUBLIC_STAGING_WILDCARD_DOMAIN : null,
-                       publicProductionWildcardDomain: params.PUBLIC_PRODUCTION_WILDCARD_DOMAIN != "" ? params.PUBLIC_PRODUCTION_WILDCARD_DOMAIN : null,
-                       privateBaseUrl: params.PRIVATE_BASE_URL ],
-        toolbox: [ openshiftProject: params.NAMESPACE,
-                   destination: params.TARGET_INSTANCE,
-                   image: "quay.io/redhat/3scale-toolbox:master", // TODO: remove me once the final image is released
-                   insecure: params.DISABLE_TLS_VALIDATION == "yes",
-                   secretName: params.SECRET_NAME],
-        service: [:],
-        applications: [
-            [ name: "my-test-app", description: "This is used for tests", plan: "test", account: params.DEVELOPER_ACCOUNT_ID ]
-        ],
-        applicationPlans: [
-          [ systemName: "test", name: "Test", defaultPlan: true, published: true ]
-        ]
-    )
-
-    // Import OpenAPI
-    service.importOpenAPI()
-    echo "Service with system_name ${service.environment.targetSystemName} created !"
-
-    // Create an Application Plan
-    service.applyApplicationPlans()
-
-    // Create an Application
-    service.applyApplication()
-
-    // Run integration tests
-    runIntegrationTests(service)
-
-    // Promote to production
-    service.promoteToProduction()
-  }
-
+  
 }
 
 def runIntegrationTests(def service) {
