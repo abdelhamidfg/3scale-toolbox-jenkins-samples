@@ -16,8 +16,8 @@
  * 4. Create a new Jenkins pipeline using the content of this file.
  */
 
-def targetSystemName = "saas-usecase-apikey"
-def targetInstance = "3scale-saas"
+def targetSystemName = "onprem-usecase-apikey"
+def targetInstance = "my-cluster-t1"
 def privateBaseURL = "http://echo-api.3scale.net"
 def testUserKey = "azerty1234567890"
 def developerAccountId = "john"
