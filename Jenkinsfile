@@ -25,8 +25,8 @@ def developerAccountId = "john"
 /*
  * Only needed when using self-managed APIcast or on-premises installation of 3scale
  */
-def publicStagingBaseURL = null // change to something such as "http://my-staging-api.example.test" for self-managed APIcast or on-premises installation of 3scale
-def publicProductionBaseURL = null // change to something such as "http://my-production-api.example.test" for self-managed APIcast or on-premises installation of 3scale
+def publicStagingBaseURL = "https://my-staging-t1-apicast-staging.apps.cluster.ocp-hamid.com" // change to something such as "http://my-staging-api.example.test" for self-managed APIcast or on-premises installation of 3scale
+def publicProductionBaseURL = "https://my-production-t1-apicast-staging.apps.cluster.ocp-hamid.com" // change to something such as "http://my-production-api.example.test" for self-managed APIcast or on-premises installation of 3scale
 
 node() {
   stage("Fetch OpenAPI") {
