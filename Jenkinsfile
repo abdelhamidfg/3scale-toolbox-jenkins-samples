@@ -15,7 +15,7 @@ node() {
  stage("Deploy API in Dev") {
     // Prepare
     service = toolbox.prepareThreescaleService(
-        openapi: [filename: "multi-environment-usecase/swagger.yaml"],
+        openapi: [filename: "location.yaml"],
         environment: [ baseSystemName: "my_service",
                        publicBasePath: "/api/",
                        environmentName: "dev",
