@@ -1,0 +1,194 @@
+openapi: 3.0.2
+info:
+    title: Location API
+    version: 1.0.0
+paths:
+    /locations:
+        summary: Path used to manage the list of locations.
+        description: >-
+            The REST endpoint/path used to list and create zero or more `location` entities.  This path
+            contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/location'
+                            examples:
+                                exam1:
+                                    value:
+                                        -
+                                            id: 39
+                                            name: some text
+                                            type: some text
+                                            status: some text
+                                            location:
+                                                lat: some text
+                                                lng: some text
+                                        -
+                                            id: 48
+                                            name: some text
+                                            type: some text
+                                            status: some text
+                                            location:
+                                                lat: some text
+                                                lng: some text
+                    description: Successful response - returns an array of `location` entities.
+            operationId: getlocations
+            summary: List All locations
+            description: Gets a list of all `location` entities.
+        post:
+            requestBody:
+                description: A new `location` to be created.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/location'
+                        examples:
+                            exam1:
+                                value:
+                                    id: 96
+                                    name: some text
+                                    type: some text
+                                    status: '1'
+                                    location:
+                                        lat: '12'
+                                        lng: '32'
+                required: true
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            examples:
+                                exam1:
+                                    value: {}
+                    description: Successful response.
+            operationId: createlocation
+            summary: Create a location
+            description: Creates a new instance of a `location`.
+    '/locations/{locationId}':
+        summary: Path used to manage a single location.
+        description: >-
+            The REST endpoint/path used to get, update, and delete single instances of an `location`.  This
+            path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete
+            tasks, respectively.
+        get:
+            parameters:
+                -
+                    examples:
+                        exam1:
+                            value: '1'
+                    name: locationId
+                    description: A unique identifier for a `location`.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/location'
+                            examples:
+                                exam1:
+                                    value:
+                                        id: 73
+                                        name: some text
+                                        type: some text
+                                        status: some text
+                                        location:
+                                            lat: some text
+                                            lng: some text
+                    description: Successful response - returns a single `location`.
+            operationId: getlocation
+            summary: Get a location
+            description: Gets the details of a single instance of a `location`.
+        put:
+            requestBody:
+                description: Updated `location` information.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/location'
+                        examples:
+                            exam1:
+                                value:
+                                    id: 83
+                                    name: some text
+                                    type: some text
+                                    status: some text
+                                    location:
+                                        lat: some text
+                                        lng: some text
+                required: true
+            responses:
+                '202':
+                    content:
+                        application/json:
+                            examples:
+                                exam1:
+                                    value: {}
+                    description: Successful response.
+            operationId: updatelocation
+            summary: Update a location
+            description: Updates an existing `location`.
+        delete:
+            responses:
+                '204':
+                    description: Successful response.
+            operationId: deletelocation
+            summary: Delete a location
+            description: Deletes an existing `location`.
+        parameters:
+            -
+                examples:
+                    exam1:
+                        value: '"1"'
+                name: locationId
+                description: A unique identifier for a `location`.
+                schema:
+                    type: string
+                in: path
+                required: true
+components:
+    schemas:
+        location:
+            title: Root Type for location
+            description: ''
+            type: object
+            properties:
+                id:
+                    type: integer
+                name:
+                    type: string
+                type:
+                    type: string
+                status:
+                    type: string
+                location:
+                    type: object
+                    properties:
+                        lat:
+                            type: string
+                        lng:
+                            type: string
+            example:
+                id: 1
+                name: Kamarhati
+                type: Regional Branch
+                status: '1'
+                location:
+                    lat: '-28.32555'
+                    lng: '-5.91531'
+    securitySchemes:
+        security:
+            type: apiKey
+            name: apiKey
+            in: query
+security:
+    -
+        security: []
